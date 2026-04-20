@@ -1,0 +1,25 @@
+services:
+  bot:
+    build: .
+    container_name: portfolio_real_estate_bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      REDIS_HOST: redis
+    volumes:
+      - ./config:/app/config
+      - ./data:/app/data
+      - ./storage:/app/storage
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:7-alpine
+    container_name: portfolio_real_estate_bot_redis
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+
+volumes:
+  redis_data:
