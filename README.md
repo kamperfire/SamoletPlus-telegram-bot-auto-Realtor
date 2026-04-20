@@ -1,7 +1,9 @@
 # SamoletPlus-telegram-bot-auto-Realtor
 
-An anonymized Telegram bot template for property search, object browsing, and lead collection.  
-This repository is based on a real working project, but all secrets, business identifiers, cities, uploaded objects, user data, logs, and client-specific branding were removed so it can be safely published on GitHub.
+Telegram bot for the company Samolet Plus, automatically parses the company's data with objects, loads them into RAM, and displays a single link to the agent who holds the ad. Broad filtering of object parameters.
+
+ An anonymous Telegram bot template for searching for real estate, viewing objects, and collecting potential clients.   
+ This repository is based on a real working project, but all secret data, company IDs, city IDs, uploaded objects, user data, logs, and customer branding elements have been removed for publication on GitHub.
 
 ## What This Project Shows
 
