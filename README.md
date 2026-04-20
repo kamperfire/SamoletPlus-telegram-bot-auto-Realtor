@@ -1,4 +1,4 @@
-# Portfolio Real Estate Bot Template
+# SamoletPlus-telegram-bot-auto-Realtor
 
 An anonymized Telegram bot template for property search, object browsing, and lead collection.  
 This repository is based on a real working project, but all secrets, business identifiers, cities, uploaded objects, user data, logs, and client-specific branding were removed so it can be safely published on GitHub.
