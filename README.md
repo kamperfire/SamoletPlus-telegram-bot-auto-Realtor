@@ -1,163 +1,116 @@
-# SamoletPlus-telegram-bot-auto-Realtor
+# Real Estate Telegram Automation Bot
 
-Telegram bot for the company Samolet Plus, automatically parses the company's data with objects, loads them into RAM, and displays a single link to the agent who holds the ad. Broad filtering of object parameters.
+An anonymized Telegram bot template for real estate search, object filtering, lead capture, and manager handoff.
 
- An anonymous Telegram bot template for searching for real estate, viewing objects, and collecting potential clients.   
- This repository is based on a real working project, but all secret data, company IDs, city IDs, uploaded objects, user data, logs, and customer branding elements have been removed for publication on GitHub.
+The project is based on a real client workflow. Public data, company identifiers, user history, logs, object exports, contacts, and branding were removed before publishing.
 
-## What This Project Shows
+## What It Shows
 
 - Async Telegram bot built with `aiogram`
-- FSM-based user flow for search and lead capture
-- Redis-based state storage
-- SQLite user profile storage
-- JSON-driven property catalog and city analytics
-- Separate business config and secret config for safe reuse
+- FSM-based user flow for search, filtering, and lead capture
+- Redis state storage for active sessions
+- SQLite storage for user profiles and request history
+- JSON-driven real estate object catalog
+- Separate business config and secret config
 - Docker-ready local deployment
+
+## Why It Is Useful
+
+Real estate teams often have large object catalogs, repeated user questions, and several agents responsible for different listings. This bot turns that into a structured flow:
+
+1. User selects city and object type.
+2. Bot filters objects by parameters.
+3. User receives a clean object card.
+4. Bot routes the lead to the right manager.
+5. Runtime data stays outside the public repository.
 
 ## Project Structure
 
 ```text
 .
-├── config/
-│   ├── app_config.example.json
-│   └── app_config.json          # local, ignored by git
-├── data/
-│   ├── city_reports/
-│   └── objects/
-│       ├── Commerce/
-│       ├── Flat/
-│       ├── House/
-│       ├── Land/
-│       └── Room/
-├── scripts/
-│   ├── control_panel.py
-│   └── validate_setup.py
-├── src/portfolio_bot/
-│   ├── main.py
-│   └── settings.py
-├── storage/
-└── docker-compose.yml
+|-- config/
+|   |-- app_config.example.json
+|   `-- app_config.json          # local, ignored by git
+|-- data/
+|   |-- city_reports/
+|   `-- objects/
+|       |-- Commerce/
+|       |-- Flat/
+|       |-- House/
+|       |-- Land/
+|       `-- Room/
+|-- scripts/
+|   |-- control_panel.py
+|   `-- validate_setup.py
+|-- src/portfolio_bot/
+|   |-- main.py
+|   `-- settings.py
+|-- storage/
+|-- docker-compose.yml
+`-- Dockerfile
 ```
 
 ## Quick Start
 
-1. Create and activate a virtual environment.
-2. Install dependencies:
-
 ```bash
+python -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-3. Fill in local configuration files:
+Create local config files:
 
-- Edit `.env`
-- Edit `config/app_config.json`
+```bash
+cp .env.example .env
+cp config/app_config.example.json config/app_config.json
+```
 
-4. Validate the setup:
+Validate and run:
 
 ```bash
 python scripts/validate_setup.py
-```
-
-5. Start Redis locally, then run the bot:
-
-```bash
 python src/portfolio_bot/main.py
 ```
 
-Optional control panel:
-
-```bash
-python scripts/control_panel.py
-```
-
-## Configuration
-
-### Secrets in `.env`
-
-Use `.env` only for secrets and runtime paths:
-
-- `BOT_TOKEN`
-- `REDIS_HOST`
-- spam / cooldown limits
-- database and storage paths
-
-### Business Data in `config/app_config.json`
-
-All client-facing values live in one separate file:
-
-- brand name
-- welcome text
-- manager username
-- phone numbers
-- Telegram link
-- office address
-- map URL
-- optional media URLs
-- object card URL template
-
-This makes the template easy to adapt for a new client without touching Python code.
-
-## Data Format
-
-### Property objects
-
-Put uploaded objects into:
-
-- `data/objects/Flat`
-- `data/objects/House`
-- `data/objects/Commerce`
-- `data/objects/Land`
-- `data/objects/Room`
-
-Each object should be a separate JSON file.
-
-### City reports
-
-Put city analytics JSON files into:
-
-- `data/city_reports`
-
-The bot builds the city selection dynamically from those files, so no hardcoded city list is required.
-
-## Docker
+Docker:
 
 ```bash
 docker compose up --build
 ```
 
-## Sanitization Notes
+## Configuration
 
-The published version intentionally excludes:
+Secrets live in `.env`:
 
-- Telegram bot token
-- real manager identifiers
-- real phone numbers
-- real office links and map links
-- uploaded production objects
-- city-specific production analytics
-- runtime database
-- user history
-- lead history
-- logs
+- `BOT_TOKEN`
+- `REDIS_HOST`
+- cooldown and spam limits
+- local storage paths
 
-## Checked Dependency Versions
+Business values live in `config/app_config.json`:
 
-The dependency pins in `requirements.txt` and `pyproject.toml` were checked against PyPI on April 20, 2026.
+- brand name
+- welcome text
+- manager username
+- public contacts
+- object card URL template
+- optional media URLs
 
-- `aiogram==3.27.0`
-- `aiosqlite==0.22.1`
-- `aiohttp==3.13.5`
-- `python-dotenv==1.2.2`
-- `redis==7.4.0`
-- `psutil==7.2.2`
+This makes the bot reusable for different clients without changing Python code.
 
-Sources:
+## Portfolio Notes
 
-- [aiogram on PyPI](https://pypi.org/pypi/aiogram/json)
-- [aiosqlite on PyPI](https://pypi.org/pypi/aiosqlite/json)
-- [aiohttp on PyPI](https://pypi.org/pypi/aiohttp/json)
-- [python-dotenv on PyPI](https://pypi.org/pypi/python-dotenv/json)
-- [redis on PyPI](https://pypi.org/pypi/redis/json)
-- [psutil on PyPI](https://pypi.org/pypi/psutil/json)
+This repository is published as a sanitized portfolio version. It demonstrates the architecture and deployment approach without exposing production data.
+
+The strongest parts of the project are:
+
+- reusable client configuration
+- clean separation between runtime data and code
+- Telegram UX for object search
+- Docker-based deployment
+- lead routing workflow
+
+## Keywords
+
+`python`, `aiogram`, `telegram-bot`, `real-estate`, `automation`, `redis`, `sqlite`, `docker`, `lead-generation`, `workflow-automation`
+
